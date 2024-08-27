@@ -2,29 +2,29 @@
 
 Here is a solution for developing an internal management tool that allows administrators to add, edit, and delete books and supports paging, sorting, and high-load queries
 
-###1. Database Schema and SQL Scripts:
+### 1. Database Schema and SQL Scripts:
 
 I chose MySQL for this tool because:
 
-a. MySQL is highly compatible with PHP.
-b. It offers excellent performance, indexing, and scalability options, especially for read-heavy applications.
-c. It's widely supported and reliable for building CRUD applications.
+- MySQL is highly compatible with PHP.
+- It offers excellent performance, indexing, and scalability options, especially for read-heavy applications.
+- It's widely supported and reliable for building CRUD applications.
 
 Database Schema:https://github.com/alisaxu/php-book-management-tool/blob/main/books.sql
 
-###2. PHP CRUD Functions (Add/Edit/Delete Books):
+### 2. PHP CRUD Functions (Add/Edit/Delete Books):
 
 Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
 Function name : addBook,editBook,deleteBook
 
-###3. PHP Function for Pagination and Sorting:
+### 3. PHP Function for Pagination and Sorting:
 
 The function will allow sorting by any column (title, author, genre, price, release date, or review rating) and will display 10 books per page.
 
 Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
 Function name : getBooks
 
-###4. Stored Procedure for Top 10 Best Sellers:
+### 4. Stored Procedure for Top 10 Best Sellers:
 
 In high-load scenarios, index and cache optimization is used to achieve the best performance
 
@@ -53,8 +53,8 @@ You can invoke this stored procedure with the following command:
 CALL getTopBestSellers();
 ```
 
-###5. High load optimization strategy:
+### 5. High load optimization strategy:
 
-a. Index optimization: Create indexes for the copies_sold column to speed up queries.
-b. Cache mechanism: Use Redis or Memcached to cache popular data to reduce database pressure.
-c. Read/write separation: Implements efficient data read through master/slave replication and load balancing
+- Index optimization: Create indexes for the copies_sold column to speed up queries.
+- Cache mechanism: Use Redis or Memcached to cache popular data to reduce database pressure.
+- Read/write separation: Implements efficient data read through master/slave replication and load balancing
