@@ -14,15 +14,15 @@ Database Schema:https://github.com/alisaxu/php-book-management-tool/blob/main/bo
 
 ### 2. PHP CRUD Functions (Add/Edit/Delete Books):
 
-Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
-Function name : addBook,editBook,deleteBook
+- Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
+- Function name : addBook,editBook,deleteBook
 
 ### 3. PHP Function for Pagination and Sorting:
 
 The function will allow sorting by any column (title, author, genre, price, release date, or review rating) and will display 10 books per page.
 
-Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
-Function name : getBooks
+- Function directory ：https://github.com/alisaxu/php-book-management-tool/blob/main/index.php
+- Function name : getBooks
 
 ### 4. Stored Procedure for Top 10 Best Sellers:
 
