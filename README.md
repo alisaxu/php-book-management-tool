@@ -67,11 +67,15 @@ CALL getTopBestSellers();
 - Pull the code locally
 ```shell
 git clone git@github.com:alisaxu/php-book-management-tool.git
+
+cd php-book-management-tool
 ```
 
 - Build image
 ```shell
+
 docker-compose up -d
+docker-compose ps
 docker-compose down
 
 #Reconstruct image
@@ -159,7 +163,7 @@ DELIMITER //
 
 CREATE PROCEDURE getTopBestSellers()
 BEGIN
-    SELECT title, author, genre, price, release_date, review_rating, copies_sold
+    SELECT id, title, author, genre, price, release_date, review_rating, copies_sold
     FROM books
     ORDER BY copies_sold DESC, review_rating DESC
     LIMIT 10;
