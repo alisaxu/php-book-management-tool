@@ -169,9 +169,6 @@ DELIMITER ;
 
 #Check whether the stored procedure was added correctly
 SHOW PROCEDURE STATUS LIKE 'getTopBestSellers';
-
-#Delete stored procedure
-DROP PROCEDURE IF EXISTS getTopBestSellers;
 ```
 
 - Call stored procedure
@@ -180,7 +177,25 @@ DROP PROCEDURE IF EXISTS getTopBestSellers;
 CALL getTopBestSellers();
 ```
 
-- Test the stored procedure through the interface
+- Test the stored procedure through the interface (getTopTenBestSellers)
 
+Api document: https://apifox.com/apidoc/shared-d861ca62-a404-4fce-84e8-f5bbbb89b8ce
+
+- Curl:
+
+```shell
+curl --location --request POST 'http://localhost:8080/getTopTenBestSellers' \
+--header 'User-Agent: Apifox/1.0.0 (https://apifox.com)'
+```
+
+- Other available commands：
+
+```shell
+#Delete stored procedure
+DROP PROCEDURE IF EXISTS getTopBestSellers;
+
+#Check whether the stored procedure was added correctly
+SHOW PROCEDURE STATUS LIKE 'getTopBestSellers';
+```
 
 
