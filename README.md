@@ -40,7 +40,7 @@ DELIMITER //
 #Get the top 10 books with the highest sales and highest ratings
 CREATE PROCEDURE getTopBestSellers()
 BEGIN
-    SELECT title, author, genre, price, release_date, review_rating, copies_sold
+    SELECT id, title, author, genre, price, release_date, review_rating, copies_sold
     FROM books
     ORDER BY copies_sold DESC, review_rating DESC
     LIMIT 10;
@@ -98,7 +98,7 @@ docker-compose exec -it nginx /bin/sh
 cd /var/www/html
 ```
 
-## How to test features
+## How to test the Api
 
 - Api document: https://apifox.com/apidoc/shared-d861ca62-a404-4fce-84e8-f5bbbb89b8ce
 
@@ -131,20 +131,56 @@ curl --location --request POST 'http://localhost:8080/editBook' \
 
 #deleteBook
 
-curl --location --request POST 'http://localhost:8080/addBook' \
+curl --location --request POST 'http://localhost:8080/deleteBook' \
 --header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
---form 'title="12356"' \
---form 'author="1"' \
---form 'genre="1"' \
---form 'price="2"' \
---form 'release_date="2021-01-09"' \
---form 'review_rating="2.0"'
+--form 'id="1"'
 
 #getBooks
 
 curl --location --request POST 'http://localhost:8080/getBooks' \
 --header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
---form 'price="2"' \
---form 'release_date="2021-01-09"' \
---form 'review_rating="2.0"'
+--form 'page="1"' \
+--form 'sort_by="title"' \
+--form 'sort_order="DESC"'
 ```
+
+## How do I test stored procedures
+
+- Add stored procedure
+
+```shell
+#Login mysql (password : userpassword)
+docker exec -it php-book-management-tool-mysql-1 mysql -uuser -p
+
+use dbbook;
+
+#Paste the command to the CLI and perform this operation
+DELIMITER //
+
+CREATE PROCEDURE getTopBestSellers()
+BEGIN
+    SELECT title, author, genre, price, release_date, review_rating, copies_sold
+    FROM books
+    ORDER BY copies_sold DESC, review_rating DESC
+    LIMIT 10;
+END //
+
+DELIMITER ;
+
+#Check whether the stored procedure was added correctly
+SHOW PROCEDURE STATUS LIKE 'getTopBestSellers';
+
+#Delete stored procedure
+DROP PROCEDURE IF EXISTS getTopBestSellers;
+```
+
+- Call stored procedure
+
+```shell
+CALL getTopBestSellers();
+```
+
+- Test the stored procedure through the interface
+
+
+

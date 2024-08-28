@@ -133,6 +133,33 @@ function getBooks($postParams) {
     return ['status' => 'success', 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)];
 }
 
+/**
+ * Fetches the top 10 best-selling books with the highest ratings from the database.
+ *
+ * This function calls the stored procedure `getTopBestSellers` to retrieve the
+ * top 10 books based on the number of copies sold and review ratings.
+ * It returns the result as an associative array.
+ *
+ * @return array Returns an associative array with the status and data.
+ *               - 'status': Indicates whether the operation was successful.
+ *               - 'data': An array of the top 10 best-selling books (title, author, genre, price, release_date, review_rating, copies_sold).
+ */
+function getTopTenBestSellers() {
+    try {
+        global $pdo;
+        // Prepare and execute the stored procedure
+        $stmt = $pdo->query("CALL getTopBestSellers()");
+
+        //If you are under high stress, you can put the result in the cache
+        // Return the results
+        return ['status' => 'success', 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)];
+    } catch (PDOException $e) {
+        // Handle any errors that occur during the query execution
+        echo "Query failed: " . $e->getMessage();
+    }
+}
+
+
 // Function to validate and sanitize input parameters
 function validateParams($postParams) {
     $errors = [];
@@ -192,8 +219,6 @@ function validateParams($postParams) {
 
 // Function to analyze the route and dispatch to the correct handler
 function routeAnalyze() {
-    global $pdo;
-
     // Get the requested URI
     $requestUri = $_SERVER['REQUEST_URI'];
 
@@ -205,7 +230,8 @@ function routeAnalyze() {
         '/addBook' => 'addBook',
         '/editBook' => 'editBook',
         '/deleteBook' => 'deleteBook',
-        '/getBooks' => 'getBooks'
+        '/getBooks' => 'getBooks',
+        '/getTopTenBestSellers' => 'getTopTenBestSellers'
     ];
 
     // Route parsing and function dispatching
